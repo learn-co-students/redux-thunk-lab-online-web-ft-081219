@@ -1,9 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import App from './App'
+import ReactDOM from 'react-dom';
+import App from './App';
+ 
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import catsReducer from './reducers/catsReducer.js';
+import {fetchCats }from "./actions/catActions"
 
-
+ 
+const store = createStore(catsReducer,applyMiddleware(thunk))
+ 
 ReactDOM.render(
-    <App />,
-    document.getElementById('root')
+  <Provider store={store}>
+    <App fetchCats={fetchCats} />
+  </Provider>,
+  document.getElementById('root')
 );
